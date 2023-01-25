@@ -4,7 +4,73 @@
     x:Class="Maui.Controls.Sample.SandboxShell"
     xmlns:local="clr-namespace:Maui.Controls.Sample"
     x:Name="shell">
-    <FlyoutItem Title="Flyout Item Title">
-        <ShellContent ContentTemplate="{DataTemplate local:MainPage}"></ShellContent>
-    </FlyoutItem>
+    <Shell.Resources>
+        <Style x:Key="BrowseTab1" TargetType="Tab">
+            <Style.Triggers>
+                <Trigger TargetType="Tab" Property="IsChecked" Value="False">
+                    <Setter Property="Icon" Value="radio_off.png" />
+                </Trigger>
+                <Trigger TargetType="Tab" Property="IsChecked" Value="True">
+                    <Setter Property="Icon" Value="radio_on.png" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BrowseTab2" TargetType="Tab">
+            <Style.Triggers>
+                <Trigger TargetType="Tab" Property="IsChecked" Value="False">
+                    <Setter Property="Icon" Value="radio_off.png" />
+                </Trigger>
+                <Trigger TargetType="Tab" Property="IsChecked" Value="True">
+                    <Setter Property="Icon" Value="radio_on.png" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BrowseTab3" TargetType="Tab">
+            <Style.Triggers>
+                <Trigger TargetType="Tab" Property="IsChecked" Value="False">
+                    <Setter Property="Icon" Value="radio_off.png" />
+                </Trigger>
+                <Trigger TargetType="Tab" Property="IsChecked" Value="True">
+                    <Setter Property="Icon" Value="radio_on.png" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Shell.Resources>
+
+
+    <TabBar>
+        <Tab Title="Home" Icon="house">
+            <ShellContent Title="Home 1" ContentTemplate="{DataTemplate local:MainPage}" />
+            <!-- Works -->
+            <ShellContent Title="Home 2" ContentTemplate="{DataTemplate local:MainPage}" />
+            <!-- Works -->
+        </Tab>
+        <Tab Title="Other" Icon="information">
+            <ShellContent Title="Other 1" ContentTemplate="{DataTemplate local:MainPage}" />
+            <!-- Works -->
+            <ShellContent Title="Other 2" ContentTemplate="{DataTemplate local:MainPage}" />
+            <!-- DOES NOT work -->
+        </Tab>
+    </TabBar>
+
+    <TabBar>
+        <Tab
+            Title="Quotations"
+            Icon="radio_off.png"
+            Style="{StaticResource BrowseTab1}">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage1" />
+        </Tab>
+        <Tab
+            Title="Logout"
+            Icon="radio_off.png"
+            Style="{StaticResource BrowseTab2}">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage2" />
+        </Tab>
+        <Tab
+            Title="Timer"
+            Icon="radio_off.png"
+            Style="{StaticResource BrowseTab3}">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage3" />
+        </Tab>
+    </TabBar>
 </Shell>

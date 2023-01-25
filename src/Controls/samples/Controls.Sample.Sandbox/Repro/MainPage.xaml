@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:FlyoutProject.Pages"
+             x:Class="FlyoutProject.MainPage">
+
+
+    <FlyoutPage.Flyout>
+        <local:MenuPage x:Name="flyoutPage" />
+    </FlyoutPage.Flyout>
+    <FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <local:ContactsPage />
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
+    
+</FlyoutPage>

@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Maui.Controls.Sample.Pages.CustomFlyoutPage"
     xmlns:views="clr-namespace:Maui.Controls.Sample.Pages.Base"
-    Title="Custom Flyout Page">
+    Title="Custom Flyout Page"
+    FlyoutLayoutBehavior="Split"
+    >
     <FlyoutPage.Flyout>
         <views:BasePage Title="Flyout Page">
             <CollectionView

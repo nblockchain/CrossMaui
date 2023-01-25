@@ -156,7 +156,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			_appeared = false;
 			PageController.SendDisappearing();
 		}
-
+				
 		public override void ViewWillLayoutSubviews()
 		{
 			base.ViewWillLayoutSubviews();
@@ -175,7 +175,7 @@ namespace Microsoft.Maui.Controls.Handlers.Compatibility
 			var toolbarY = NavigationBarHidden || NavigationBar.Translucent || !_hasNavigationBar ? 0 : navBarFrameBottom;
 			toolbar.Frame = new RectangleF(0, toolbarY, View.Frame.Width, toolbar.Frame.Height);
 
-			(Element as IView).Arrange(View.Bounds.ToRectangle());
+			// (Element as IView).Arrange(View.Bounds.ToRectangle());
 		}
 
 		public override void ViewDidLoad()

@@ -11,13 +11,13 @@ namespace Maui.Controls.Sample
 			MauiApp
 				.CreateBuilder()
 				.UseMauiMaps()
-				.UseMauiApp<App>()
+				.UseMauiApp<FlyoutProject.App>()
 				.Build();
 	}
 
 	class App : Application
 	{
 		protected override Window CreateWindow(IActivationState activationState) =>
-			new Window(new NavigationPage(new MainPage()));
+			new Window(new SandboxShell());
 	}
 }

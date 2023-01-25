@@ -38,6 +38,8 @@
   <ItemGroup>
     <MauiImage Include="Resources\AppIcons\appicon.svg" ForegroundFile="Resources\AppIcons\appicon_foreground.svg" IsAppIcon="true" />
     <MauiImage Include="Resources\Images\dotnet_bot.svg" Color="#FFFFFF" BaseSize="168,208" />
+    <MauiImage Include="Resources\Images\radio_off.svg" />
+    <MauiImage Include="Resources\Images\radio_on.svg" />
     <MauiSplashScreen Include="Resources\Images\dotnet_bot.svg" Color="#FFFFFF" BaseSize="168,208" />
   </ItemGroup>
 
