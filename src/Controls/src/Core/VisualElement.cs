@@ -798,21 +798,9 @@ namespace Microsoft.Maui.Controls
 		/// <include file="../../docs/Microsoft.Maui.Controls/VisualElement.xml" path="//Member[@MemberName='Focus']/Docs/*" />
 		public bool Focus()
 		{
-			if (IsFocused)
-				return true;
-
-			if (FocusChangeRequested == null)
-			{
-				FocusRequest focusRequest = new FocusRequest(false);
-
-				Handler?.Invoke(nameof(IView.Focus), focusRequest);
-
-				return focusRequest.IsFocused;
-			}
-
-			var arg = new FocusRequestArgs { Focus = true };
-			FocusChangeRequested(this, arg);
-			return arg.Result;
+			FocusRequest focusRequest = new FocusRequest(false);
+			Handler?.Invoke(nameof(IView.Focus), focusRequest);
+			return focusRequest.IsFocused;
 		}
 
 		public event EventHandler<FocusEventArgs> Focused;

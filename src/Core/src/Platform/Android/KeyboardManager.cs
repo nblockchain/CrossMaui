@@ -7,6 +7,7 @@ using Android.Views.InputMethods;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Core.View;
+using Microsoft.Maui.ApplicationModel;
 using AView = Android.Views.View;
 using SearchView = AndroidX.AppCompat.Widget.SearchView;
 
@@ -35,12 +36,34 @@ namespace Microsoft.Maui.Platform
 			if (inputView?.Context == null)
 				throw new ArgumentNullException(nameof(inputView) + " must be set before the keyboard can be shown.");
 
-			using (var inputMethodManager = (InputMethodManager)inputView.Context.GetSystemService(Context.InputMethodService)!)
+			if (inputView.IsFocused)
+				Show();
+			else
 			{
-				// The zero value for the second parameter comes from 
-				// https://developer.android.com/reference/android/view/inputmethod/InputMethodManager#showSoftInput(android.view.View,%20int)
-				// Apparently there's no named value for zero in this case
-				inputMethodManager?.ShowSoftInput(inputView, 0);
+				var q = Looper.MyLooper();
+				if (q != null)
+					new Handler(q).Post(RequestFocus);
+				else
+					MainThread.InvokeOnMainThreadAsync(RequestFocus);
+
+				void RequestFocus()
+				{
+					if (inputView.IsDisposed())
+						return;
+
+					Show();
+				}
+			}
+
+			void Show()
+			{
+				using (var inputMethodManager = (InputMethodManager)inputView.Context.GetSystemService(Context.InputMethodService)!)
+				{
+					// The zero value for the second parameter comes from 
+					// https://developer.android.com/reference/android/view/inputmethod/InputMethodManager#showSoftInput(android.view.View,%20int)
+					// Apparently there's no named value for zero in this case
+					inputMethodManager?.ShowSoftInput(inputView, 0);
+				}
 			}
 		}
 
@@ -51,27 +74,12 @@ namespace Microsoft.Maui.Platform
 				throw new ArgumentNullException(nameof(searchView));
 			}
 
-			// Dig into the SearchView and find the actual TextView that we want to show keyboard input for
-			int searchViewTextViewId = searchView.Resources.GetIdentifier("android:id/search_src_text", null, null);
-
-			if (searchViewTextViewId == 0)
-			{
-				// Cannot find the resource Id; nothing else to do
-				return;
-			}
-
 			var queryEditor = searchView.GetFirstChildOfType<EditText>();
 
 			if (queryEditor == null)
 				return;
 
-			using (var inputMethodManager = (InputMethodManager)searchView.Context.GetSystemService(Context.InputMethodService)!)
-			{
-				// The zero value for the second parameter comes from 
-				// https://developer.android.com/reference/android/view/inputmethod/InputMethodManager#showSoftInput(android.view.View,%20int)
-				// Apparently there's no named value for zero in this case
-				inputMethodManager?.ShowSoftInput(queryEditor, 0);
-			}
+			ShowKeyboard(queryEditor);
 		}
 
 		internal static void ShowKeyboard(this AView view)
