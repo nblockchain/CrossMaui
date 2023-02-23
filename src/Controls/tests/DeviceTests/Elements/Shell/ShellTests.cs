@@ -924,6 +924,31 @@ namespace Microsoft.Maui.DeviceTests
 		}
 #endif
 
+		[Fact]
+		public async Task BasicContentPageMeasuresCorrectly()
+		{
+			SetupBuilder();
+			var page1 = new ContentPage()
+			{
+				Title = "Page 1"
+			};
+
+			var shell = new Shell()
+			{
+				CurrentItem = page1
+			};
+
+			var window = new Window(shell);
+			await CreateHandlerAndAddToWindow<IWindowHandler>(window, async (handler) =>
+			{
+				await Task.Delay(100);
+				var pageBounds = page1.GetBoundingBox();
+
+				Assert.Equal(pageBounds.Width, window.Width);
+				Assert.Equal(pageBounds.Height, window.Height);
+			});
+		}
+
 		protected Task<Shell> CreateShellAsync(Action<Shell> action) =>
 			InvokeOnMainThreadAsync(() =>
 			{
