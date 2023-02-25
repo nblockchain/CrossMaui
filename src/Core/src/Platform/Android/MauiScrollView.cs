@@ -2,6 +2,7 @@
 using Android.Animation;
 using Android.Content;
 using Android.Graphics;
+using Android.Hardware.Lights;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
@@ -189,6 +190,10 @@ namespace Microsoft.Maui.Platform
 
 			if (_hScrollView != null && _hScrollView.Parent == this)
 			{
+				var w = right - left;
+				var h = bottom - top;
+
+				_hScrollView.Measure(MeasureSpec.MakeMeasureSpec(w, MeasureSpecMode.Exactly), MeasureSpec.MakeMeasureSpec(h, MeasureSpecMode.Exactly));
 				_hScrollView.Layout(0, 0, right - left, bottom - top);
 			}
 
