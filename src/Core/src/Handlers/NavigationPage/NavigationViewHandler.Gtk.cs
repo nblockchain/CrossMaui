@@ -13,28 +13,28 @@ namespace Microsoft.Maui.Handlers
 
 		protected override NavigationView CreatePlatformView()
 		{
-			return new();
+			return new NavigationView();
 		}
 
 		protected override void ConnectHandler(NavigationView nativeView)
 		{
 			base.ConnectHandler(nativeView);
-
-			var virtualView = VirtualView;
-
+			nativeView.Connect(VirtualView);
 		}
 
 		protected override void DisconnectHandler(NavigationView nativeView)
 		{
 			base.DisconnectHandler(nativeView);
-
-			var virtualView = VirtualView;
-
+			nativeView.Disconnect(VirtualView);
 		}
 
-		public static void RequestNavigation(INavigationViewHandler arg1, IStackNavigation arg2, object? arg3)
+		public static void RequestNavigation(INavigationViewHandler handler, IStackNavigation navigation, object? request)
 		{
-			throw new NotImplementedException();
+			if (handler is NavigationViewHandler platformHandler && request is NavigationRequest navRequest)
+			{
+				platformHandler.PlatformView?.RequestNavigation(navRequest);
+				navigation.NavigationFinished(navRequest.NavigationStack);
+			}
 		}
 	}
 

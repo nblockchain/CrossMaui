@@ -135,7 +135,7 @@ namespace Microsoft.Maui.Controls.Hosting
 			handlersCollection.AddHandler<ShellSection, ShellSectionHandler>();
 #endif
 #endif
-#if WINDOWS || ANDROID || TIZEN
+#if WINDOWS || ANDROID || TIZEN || GTK
 			handlersCollection.AddHandler<NavigationPage, NavigationViewHandler>();
 			handlersCollection.AddHandler<Toolbar, ToolbarHandler>();
 			handlersCollection.AddHandler<FlyoutPage, FlyoutViewHandler>();
