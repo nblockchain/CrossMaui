@@ -14,7 +14,7 @@ namespace Microsoft.Maui
 		/// Gets the maximum number of lines allowed in the Label.
 		/// </summary>
 		int MaxLines { get; }
-		
+
 		/// <summary>
 		/// Gets the text decoration applied to the Label.
 		/// Underline and strike-through text decorations can be applied.

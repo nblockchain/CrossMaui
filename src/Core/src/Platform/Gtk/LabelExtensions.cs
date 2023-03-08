@@ -113,7 +113,7 @@ namespace Microsoft.Maui
 		{
 			var labelLineBreakMode = label.LineBreakMode;
 			var labelMaxLines = label.MaxLines;
-			
+
 			switch (labelLineBreakMode)
 			{
 				case LineBreakMode.NoWrap:

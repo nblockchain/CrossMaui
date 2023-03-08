@@ -39,7 +39,7 @@ namespace Microsoft.Maui.Handlers
 			[nameof(ILabel.Text)] = MapText,
 			[nameof(ITextStyle.TextColor)] = MapTextColor,
 			[nameof(ILabel.TextDecorations)] = MapTextDecorations,
-#if GTK			
+#if GTK
 			[nameof(ILabel.LineBreakMode)] = MapLineBreakMode,
 			[nameof(ILabel.MaxLines)] = MapMaxLines,
 #endif

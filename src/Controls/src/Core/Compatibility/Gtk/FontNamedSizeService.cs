@@ -39,4 +39,4 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Gtk
 	}
 }
 
-#pragma warning restore CS0612 
+#pragma warning restore CS0612

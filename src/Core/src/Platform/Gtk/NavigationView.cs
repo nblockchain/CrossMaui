@@ -9,7 +9,7 @@ namespace Microsoft.Maui.Platform
 	{
 		Gtk.Widget? pageWidget = null;
 		IMauiContext? mauiContext = null;
-		
+
 		public NavigationView() : base(Gtk.Orientation.Horizontal, 0) { }
 
 		public void Connect(IStackNavigationView virtualView)
