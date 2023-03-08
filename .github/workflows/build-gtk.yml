@@ -40,6 +40,8 @@ jobs:
             dotnet build Microsoft.Maui.BuildTasks.slnf
             dotnet build ./src/Controls/samples/Controls.Sample.Gtk/Controls.Sample.Gtk.csproj
             cd ..
+      - name: Check C# style
+        run: dotnet format style Microsoft.Maui.sln --exclude ./src/Templates
 
   dotnet-format:
     needs: build_and_test
