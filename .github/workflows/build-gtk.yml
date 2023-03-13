@@ -28,6 +28,7 @@ jobs:
             WORKLOAD_MANIFEST_DIR=$DOTNET_DIR/sdk-manifests/${{ env.DotnetVersion }}/gtksharp.net.sdk.gtk
             unzip -j gtksharp.net.sdk.gtk.manifest-${{ env.DotnetVersion }}.nupkg "data/*" -d $WORKLOAD_MANIFEST_DIR/
             rm gtksharp.net.sdk.gtk.manifest-${{ env.DotnetVersion }}.nupkg
+            chmod 764 $WORKLOAD_MANIFEST_DIR/*
             dotnet workload search
             dotnet workload install gtk
       - name: Build MAUI
