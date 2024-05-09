@@ -4,6 +4,7 @@ using Microsoft.Maui.Hosting;
 using Microsoft.Maui.LifecycleEvents;
 using Gtk;
 using Microsoft.Maui.Dispatching;
+using System.Text.RegularExpressions;
 
 namespace Microsoft.Maui
 {
@@ -11,16 +12,34 @@ namespace Microsoft.Maui
 	{
 		protected abstract MauiApp CreateMauiApp();
 
+		static readonly Regex InvalidGtkApplicationIdElementCharRegex = new Regex("[^A-Za-z0-9_\\-]");
+
 		// https://docs.gtk.org/gio/type_func.Application.id_is_valid.html
-		// TODO: find a better algo for id
-		public virtual string ApplicationId => $"{typeof(MauiGtkApplication).Namespace}.{nameof(MauiGtkApplication)}.{Name}".PadRight(255, ' ').Substring(0, 255).Trim();
+		public virtual string ApplicationId
+		{
+			get
+			{
+				var name = InvalidGtkApplicationIdElementCharRegex.Replace(Name!, "_");
+				if (name.Length == 0 || (name[0] >= '0' || name[0] <= '9'))
+					name = "_" + name;
+				return $"{typeof(MauiGtkApplication).Namespace}.{nameof(MauiGtkApplication)}.{name}".PadRight(255, ' ').Substring(0, 255).Trim();
+			}
+		}
 
 		string? _name;
 
 		// https://docs.gtk.org/gio/type_func.Application.id_is_valid.html
 		public string? Name
 		{
-			get => _name ??= $"A{Guid.NewGuid()}";
+			get
+			{
+				if (_name is null)
+				{
+					var exeName = Environment.GetCommandLineArgs()[0];
+					_name = string.IsNullOrEmpty(exeName) ? "Unknown" : System.IO.Path.GetFileName(exeName);
+				}
+				return _name;
+			}
 			set { _name = value; }
 		}
 
