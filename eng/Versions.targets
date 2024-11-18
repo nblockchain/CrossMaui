@@ -64,13 +64,13 @@
 
       <VersionMetadata Condition="'$(GitCommit)' != ''"  Include="sha.$(GitCommit)"/>
 
-      <VersionMetadata Condition="$(CI)"
+      <VersionMetadata Condition="$(CI) and '$(BUILD_BUILDID)' != ''"
                        Include="azdo.$(BUILD_BUILDID)"/>
     </ItemGroup>
 
     <PropertyGroup>
       <VersionMetadataLabel>@(VersionMetadata -> '%(Identity)', '-')</VersionMetadataLabel>
-      <VersionMetadataPlusLabel Condition="'$(VersionMetadataLabel)' != ''">+$(VersionMetadataLabel)</VersionMetadataPlusLabel>
+      <VersionMetadataPlusLabel Condition="'$(VersionMetadataLabel)' != ''">0+$(VersionMetadataLabel)</VersionMetadataPlusLabel>
       <Version>$(GitBaseVersionMajor).$(GitBaseVersionMinor).$(GitBaseVersionPatch)</Version>
       <PackageReferenceVersion>$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(GitSemVerDashLabel)</PackageReferenceVersion>
       <PackageReferenceVersion Condition="$(CI) and '$(GitSemVerDashLabel)' != ''">$(GitSemVerMajor).$(GitSemVerMinor).$(GitBaseVersionPatch)$(GitSemVerDashLabel).$(BUILDVERSION)</PackageReferenceVersion>

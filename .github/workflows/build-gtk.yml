@@ -9,6 +9,14 @@ jobs:
       GtkSharpVersion: 3.24.24.117-develop
       GtkSharpManifestVersion: 8.0.200
       DotnetVersion: 8.0.200
+      PROJECTS_TO_PACK: |
+        src/BlazorWebView/src/Maui/Microsoft.AspNetCore.Components.WebView.Maui.csproj
+        src/Essentials/src/Essentials.csproj
+        src/Controls/src/Core/Controls.Core.csproj
+        src/Controls/src/Xaml/Controls.Xaml.csproj
+        src/Core/src/Core.csproj
+        src/Compatibility/Core/src/Compatibility.csproj
+        src/Controls/Foldable/src/Controls.Foldable.csproj
     steps:
       - name: Checkout MAUI repo
         uses: actions/checkout@v2
@@ -31,13 +39,14 @@ jobs:
             dotnet workload install gtk --skip-manifest-update
       - name: Build MAUI
         run: |
-            sed -i 's/_IncludeAndroid>true/_IncludeAndroid>/g' Directory.Build.Override.props
+            mv Directory.Build.Override.props.in Directory.Build.Override.props
             dotnet build Microsoft.Maui.BuildTasks.slnf
-            dotnet build Microsoft.Maui.Gtk.slnf
-      - name: Build ZXing.Net.Maui
-        run: |
-            dotnet build ./src/ZXing.Net.Maui/ZXing.Net.MAUI/ZXing.Net.MAUI.csproj --framework=net8.0-gtk
-            dotnet build ./src/ZXing.Net.Maui/ZXing.Net.MAUI.Controls/ZXing.Net.MAUI.Controls.csproj --framework=net8.0-gtk
+            echo "$PROJECTS_TO_PACK" | while read -r project; do
+              [ -z "$project" ] && continue  # Skip if empty
+              dotnet build -c Release "$project"
+            done
+      - name: Pack MAUI
+        run: ./pack_mali.sh
 
   dotnet-format:
     needs: build_and_test
