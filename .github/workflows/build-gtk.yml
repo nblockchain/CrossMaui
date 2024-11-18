@@ -33,7 +33,22 @@ jobs:
         run: |
             sed -i 's/_IncludeAndroid>true/_IncludeAndroid>/g' Directory.Build.Override.props
             dotnet build Microsoft.Maui.BuildTasks.slnf
-            dotnet build Microsoft.Maui.Gtk.slnf
+            dotnet build -c Release Microsoft.Maui.Gtk.slnf
+      - name: Pack MAUI
+        run: |
+            dotnet pack src/BlazorWebView/src/Maui/Microsoft.AspNetCore.Components.WebView.Maui.csproj --no-build --no-restore
+            dotnet pack src/Essentials/src/Essentials.csproj --no-build --no-restore
+            dotnet pack src/Controls/src/Core/Controls.Core.csproj --no-build --no-restore
+            dotnet pack src/Controls/src/Xaml/Controls.Xaml.csproj --no-build --no-restore
+            dotnet pack src/Core/src/Core.csproj --no-build --no-restore
+            dotnet pack src/Compatibility/Core/src/Compatibility.csproj --no-build --no-restore
+            dotnet pack src/Controls/Foldable/src/Controls.Foldable.csproj --no-build --no-restore
+      - name: Upload binaries to nuget (if tag or main branch, and nugetKey is present)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        if: ${{ env.NUGET_KEY != ''  && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')) }}
+        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
   dotnet-format:
     needs: build_and_test
