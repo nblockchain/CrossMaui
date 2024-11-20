@@ -10,7 +10,7 @@
   <PropertyGroup>
     <!-- NuGet package information -->
     <IsPackable>true</IsPackable>
-    <PackageId>Microsoft.AspNetCore.Components.WebView.Maui</PackageId>
+    <PackageId>Mali.AspNetCore.Components.WebView</PackageId>
     <PackageTags>$(DefaultPackageTags);blazor;webview;aspnet</PackageTags>
     <PackageIconFile>$(MauiRootDirectory)Assets\aspnet-icon.png</PackageIconFile>
     <Description>Build .NET Multi-platform App UI (.NET MAUI) apps with Blazor web UI in the BlazorWebView control.</Description>

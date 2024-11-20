@@ -24,7 +24,7 @@
   <PropertyGroup>
     <!-- NuGet package information -->
     <IsPackable>True</IsPackable>
-    <PackageId>Microsoft.Maui.Controls.Compatibility</PackageId>
+    <PackageId>Mali.Controls.Compatibility</PackageId>
     <PackageTags>$(DefaultPackageTags);compatibility;xamarin.forms;migration</PackageTags>
     <Description>Compatibility APIs and objects for .NET Multi-platform App UI (.NET MAUI) apps. This package contains a collection of APIs and views that allow for easier migration from Xamarin.Forms.</Description>
   </PropertyGroup>
