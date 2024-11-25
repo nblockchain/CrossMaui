@@ -81,6 +81,9 @@
       <PackageVersion>$(PackageReferenceVersion)$(VersionMetadataPlusLabel)</PackageVersion>
       <!-- Generate stable release package for tags -->
       <PackageVersion Condition=" '$(GitTag)' != '' ">$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)</PackageVersion>
+      <!-- Pre-release version for other cases -->
+      <PreReleaseVersionSuffix>$([System.IO.File]::ReadAllText($(MSBuildThisFileDirectory)../PreReleaseVersionSuffix.txt))</PreReleaseVersionSuffix>
+      <PackageVersion Condition="$(CI) and '$(GitTag)' == '' ">$(GitSemVerMajor).$(GitSemVerMinor).$(GitSemVerPatch)$(PreReleaseVersionSuffix)</PackageVersion>
     </PropertyGroup>
 
     <PropertyGroup>
