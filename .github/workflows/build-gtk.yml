@@ -17,6 +17,7 @@ jobs:
         src/Core/src/Core.csproj
         src/Compatibility/Core/src/Compatibility.csproj
         src/Controls/Foldable/src/Controls.Foldable.csproj
+        src/Graphics/src/Graphics/Graphics.csproj
     steps:
       - name: Checkout MAUI repo
         uses: actions/checkout@v2
