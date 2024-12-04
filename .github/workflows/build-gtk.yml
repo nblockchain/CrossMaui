@@ -39,10 +39,7 @@ jobs:
       - name: Pack MAUI
         run: dotnet pack Mali.slnf
       - name: Build Mali.ZXing
-        run: |
-            cd src/ZXing.Net.Maui
-            dotnet build -c Release --framework=net8.0-gtk ZXing.Net.MAUI/ZXing.Net.MAUI.csproj
-            dotnet build -c Release --framework=net8.0-gtk ZXing.Net.MAUI.Controls/ZXing.Net.MAUI.Controls.csproj        
+        run: dotnet build -c Release --framework=net8.0-gtk src/ZXing.Net.Maui/ZXing.Net.MAUI.sln
       - name: Pack Mali.ZXing
         run: |
             dotnet pack src/ZXing.Net.Maui/ZXing.Net.MAUI/ZXing.Net.MAUI.csproj --no-build --no-restore
